@@ -23,13 +23,23 @@ public class TarsasjatekokTester {
     }
 
     @Test
-    public void loginWithValidCredentials() {
+    public void loginAndOutWithValidCredentials() {
         MainPage mainPage = new MainPage(this.driver);
         LoginPage loginPage = mainPage.PushLoginLink();
 
         Assert.assertTrue("LoginPage should contain login text", loginPage.getBodyText().toLowerCase().contains("belépés"));
 
-        loginPage.Login(ConfigReader.get("username"), ConfigReader.get("password"));
+        MainPageLoggedIn mainPageLoggedIn = loginPage.Login(ConfigReader.get("username"), ConfigReader.get("password"));
+
+        // Test if profile is available after valid login process.
+        String profileBarText = mainPageLoggedIn.openAndGetProfileText();
+        Assert.assertTrue("Profile bar should contain user name", profileBarText.contains(ConfigReader.get("username")));
+        Assert.assertTrue("Profile bar should contain logging out option", profileBarText.contains("Kilépés"));
+        Assert.assertTrue("Profile bar should contain notifications", profileBarText.contains("Értesítések"));
+
+        // Logout
+        mainPage = mainPageLoggedIn.logout();
+        Assert.assertTrue("Login icon should appear after logging out", mainPage.isLoginButtonVisible());
     }
 
     @Test

@@ -21,9 +21,14 @@ public class LoginPage extends PageBase {
         super(webdriver);
     }
 
-    public void Login(String username, String password) {
+    public MainPageLoggedIn Login(String username, String password) {
         sendKeysFromLocator(usernameTextBoxLocator, username);
         sendKeysFromLocator(passwordTextBoxLocator, password);
         clickElementFromLocator(loginButtonLocator);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {}
+
+        return new MainPageLoggedIn(this.driver);
     }
 }
