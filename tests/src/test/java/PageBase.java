@@ -5,6 +5,8 @@ import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.time.Duration;
+
 import java.net.URL;
 import java.net.MalformedURLException;
 
@@ -20,7 +22,7 @@ public abstract class PageBase {
 
     protected PageBase(WebDriver webdriver) {
         this.driver = webdriver;
-        this.wait = new WebDriverWait(driver, 10);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     protected WebElement waitAndReturnElement(By locator) {

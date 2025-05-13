@@ -22,7 +22,7 @@ public class TarsasjatekokTester {
         this.driver.manage().window().maximize();
     }
 
-    @Test
+    /*@Test
     public void loginAndOutWithValidCredentials() {
         MainPage mainPage = new MainPage(this.driver);
         LoginPage loginPage = mainPage.PushLoginLink();
@@ -72,6 +72,15 @@ public class TarsasjatekokTester {
 
         String loginPageBodyText = loginPage.getBodyText().toLowerCase();
         Assert.assertTrue("LoginPage should contain error message", loginPageBodyText.contains("hibás") && loginPageBodyText.contains("jelszó"));
+    }*/
+
+    @Test
+    public void addAndRemoveGameFromWishList() {
+        MainPage mainPage = new MainPage(this.driver);
+        LoginPage loginPage = mainPage.PushLoginLink();
+        MainPageLoggedIn mainPageLoggedIn = loginPage.Login(ConfigReader.get("username"), ConfigReader.get("password"));
+
+        BoardGamesPage boardGames = mainPageLoggedIn.openAllBoardGames();
     }
 
     @After

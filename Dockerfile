@@ -5,9 +5,8 @@ RUN apt-get update && \
     apt-get install -y curl unzip wget gnupg2 software-properties-common
 
 # Install Java
-RUN add-apt-repository ppa:openjdk-r/ppa && \
-    apt-get update && \
-    apt-get install -y openjdk-8-jdk
+RUN apt-get update && \
+    apt-get install -y openjdk-11-jdk
 
 # Install Gradle
 ENV GRADLE_VERSION=7.4
@@ -18,7 +17,7 @@ RUN wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin
     ln -s /opt/gradle/bin/gradle /usr/bin/gradle
 
 # Set environment variables
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 ENV GRADLE_HOME=/opt/gradle
 
 # Add Gradle and Java to PATH
