@@ -12,6 +12,9 @@ import java.net.MalformedURLException;
 
 import org.junit.*;
 
+import java.util.List;
+
+
 
 public abstract class PageBase {
     protected WebDriver driver;
@@ -41,11 +44,32 @@ public abstract class PageBase {
         return this.driver.findElement(locator);
     }
 
+    protected List<WebElement> waitAndReturnAllElements(By locator, boolean clickable) {
+        if (clickable) {
+            this.wait.until(ExpectedConditions.elementToBeClickable(locator));
+        } else {
+            this.wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        }
+
+        return this.driver.findElements(locator);
+    }
+
+
     protected WebElement clickElementFromLocator(By locator) {
         WebElement locatorElement = waitAndReturnElement(locator, true);
         locatorElement.click();
 
         return locatorElement;
+    }
+
+    protected void clickNthElementFromLocator(By locator, int N) {
+        List<WebElement> locatorElements = waitAndReturnAllElements(locator, true);
+
+        if (locatorElements.size() >= N) {
+            locatorElements.get(N - 1).click();
+        } else {
+            throw new IllegalArgumentException("Element not found at index " + (N - 1));
+        }
     }
 
     protected WebElement sendKeysFromLocator(By locator, String key) {
@@ -58,5 +82,10 @@ public abstract class PageBase {
     public String getBodyText() {
         WebElement bodyElement = waitAndReturnElement(bodyLocator);
         return bodyElement.getText();
+    }
+
+    public void scrollDown(int pixels) {
+        JavascriptExecutor js = (JavascriptExecutor) this.driver;
+        js.executeScript("window.scrollBy(0, " + pixels + ");");
     }
 }

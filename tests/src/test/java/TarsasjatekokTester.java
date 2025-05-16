@@ -81,6 +81,7 @@ public class TarsasjatekokTester {
         MainPageLoggedIn mainPageLoggedIn = loginPage.Login(ConfigReader.get("username"), ConfigReader.get("password"));
 
         BoardGamesPage boardGames = mainPageLoggedIn.openAllBoardGames();
+        boardGames.searchAndOpenGame(ConfigReader.get("board_game_to_search"));
     }
 
     @After
