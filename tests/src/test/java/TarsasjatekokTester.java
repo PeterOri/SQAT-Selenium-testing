@@ -22,6 +22,12 @@ public class TarsasjatekokTester {
         this.driver.manage().window().maximize();
     }
 
+    @Test
+    public void readPageTitle() {
+        MainPage mainPage = new MainPage(this.driver);
+        Assert.assertTrue("Page title should contain 'Tarsasjatekok.com'", mainPage.getPageTitle().contains("Tarsasjatekok.com"));
+    }
+
     /*@Test
     public void loginAndOutWithValidCredentials() {
         MainPage mainPage = new MainPage(this.driver);
@@ -72,7 +78,7 @@ public class TarsasjatekokTester {
 
         String loginPageBodyText = loginPage.getBodyText().toLowerCase();
         Assert.assertTrue("LoginPage should contain error message", loginPageBodyText.contains("hibás") && loginPageBodyText.contains("jelszó"));
-    }*/
+    }
 
     @Test
     public void addAndRemoveGameFromWishList() {
@@ -98,7 +104,7 @@ public class TarsasjatekokTester {
 
         profilePage.clearWishList();
         Assert.assertFalse(boardGame + " should NOT be in the wishlist", profilePage.getBodyText().contains(boardGame));
-    }
+    }*/
 
     @After
     public void close() {

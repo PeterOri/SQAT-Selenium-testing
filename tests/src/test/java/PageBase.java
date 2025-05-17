@@ -88,4 +88,8 @@ public abstract class PageBase {
         JavascriptExecutor js = (JavascriptExecutor) this.driver;
         js.executeScript("window.scrollBy(0, " + pixels + ");");
     }
+
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
 }
