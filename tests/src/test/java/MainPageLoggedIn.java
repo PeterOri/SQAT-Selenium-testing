@@ -16,6 +16,7 @@ public class MainPageLoggedIn extends MainPage {
     private final By baseProfilePictureLocator = By.xpath("//img[contains(@src, 'avatar-transparent')]");
     private final By profileBarLocator = By.cssSelector(".user_bar.profile");
     private final By logoutLinkLocator = By.className("logout");
+    private final By profileLinkLocator = By.className("name-location");
 
     public MainPageLoggedIn(WebDriver webdriver) {
         super(webdriver, true);
@@ -30,5 +31,10 @@ public class MainPageLoggedIn extends MainPage {
         clickElementFromLocator(logoutLinkLocator);
 
         return new MainPage(this.driver, true);
+    }
+
+    public ProfilePage openProfile() {
+        clickElementFromLocator(profileLinkLocator);
+        return new ProfilePage(this.driver);
     }
 }

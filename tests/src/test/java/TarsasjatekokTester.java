@@ -81,7 +81,23 @@ public class TarsasjatekokTester {
         MainPageLoggedIn mainPageLoggedIn = loginPage.Login(ConfigReader.get("username"), ConfigReader.get("password"));
 
         BoardGamesPage boardGames = mainPageLoggedIn.openAllBoardGames();
-        boardGames.searchAndOpenGame(ConfigReader.get("board_game_to_search"));
+        boardGames.searchGame(ConfigReader.get("board_game_to_search"));
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {}
+        boardGames.addFirstGameToWishList();
+        boardGames.openAndGetProfileText();
+        ProfilePage profilePage = boardGames.openProfile();
+
+        profilePage.openWishList();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {}
+        String boardGame = ConfigReader.get("board_game_to_search");
+        Assert.assertTrue(boardGame + " should be in the wishlist", profilePage.getBodyText().contains(boardGame));
+
+        profilePage.clearWishList();
+        Assert.assertFalse(boardGame + " should NOT be in the wishlist", profilePage.getBodyText().contains(boardGame));
     }
 
     @After

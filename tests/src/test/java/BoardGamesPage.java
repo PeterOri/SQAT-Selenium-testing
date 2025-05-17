@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 
 import org.junit.*;
 
-public class BoardGamesPage extends PageBase {
+public class BoardGamesPage extends MainPageLoggedIn {
     // Locators
     private final By searchLocator = By.xpath("//div[@class='col-sm-8']//input[@class='form-control']");
     private final By hearthIconLocator = By.cssSelector("i.fa.fa-heart");
@@ -20,14 +20,12 @@ public class BoardGamesPage extends PageBase {
         super(webdriver);
     }
 
-    public void searchAndOpenGame(String gameName) {
+    public void searchGame(String gameName) {
         sendKeysFromLocator(searchLocator, gameName);
+    }
 
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {}
-
-        scrollDown(15);
+    public void addFirstGameToWishList() {
+        scrollDown(20);
         clickNthElementFromLocator(hearthIconLocator, 1);
     }
 }
