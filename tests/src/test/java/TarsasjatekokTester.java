@@ -43,7 +43,7 @@ public class TarsasjatekokTester {
         Assert.assertTrue("Main page should contain '" + mainTitle + "' in the title", title.contains(mainTitle));
     }
 
-    /*@Test
+    @Test
     public void loginAndOutWithValidCredentials() {
         MainPage mainPage = new MainPage(this.driver);
         LoginPage loginPage = mainPage.PushLoginLink();
@@ -119,7 +119,7 @@ public class TarsasjatekokTester {
 
         profilePage.clearWishList();
         Assert.assertFalse(boardGame + " should NOT be in the wishlist", profilePage.getBodyText().contains(boardGame));
-    }*/
+    }
 
     @After
     public void close() {
