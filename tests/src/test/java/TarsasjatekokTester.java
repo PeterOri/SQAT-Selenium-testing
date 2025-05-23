@@ -23,9 +23,24 @@ public class TarsasjatekokTester {
     }
 
     @Test
-    public void readPageTitle() {
+    public void staticPagesShouldHaveCorrectTitles() {
+        String[] staticPages = ConfigReader.get("static_pages").split(",");
+
+        // test all static pages from config file with expected title
+        for (String url : staticPages) {
+            String trimmedUrl = url.trim();
+            driver.get(trimmedUrl);
+
+            String title = driver.getTitle();
+            String expectedTitle = ConfigReader.get("expected_title");
+            Assert.assertTrue("Page " + trimmedUrl + " should contain '" + expectedTitle + "' in the title", title.contains(expectedTitle));
+        }
+
+        // test main page with main title
+        String mainTitle = ConfigReader.get("main_title");
         MainPage mainPage = new MainPage(this.driver);
-        Assert.assertTrue("Page title should contain 'Tarsasjatekok.com'", mainPage.getPageTitle().contains("Tarsasjatekok.com"));
+        String title = mainPage.getPageTitle();
+        Assert.assertTrue("Main page should contain '" + mainTitle + "' in the title", title.contains(mainTitle));
     }
 
     /*@Test
